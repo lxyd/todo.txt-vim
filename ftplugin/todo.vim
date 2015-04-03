@@ -56,18 +56,40 @@ function! s:AppendToFile(file, lines)
     call writefile(l:lines, a:file)
 endfunction
 
+function! TodoTxtGetSiblingFileName(base_name)
+    let l:cur_filename = expand('%:f')
+
+    if l:cur_filename =~ "^[A-Z]" 
+        let l:first_letter = toupper(a:base_name[0])
+    else
+        let l:first_letter = a:base_name[0]
+    endif
+
+    return l:first_letter.a:base_name[1:].".txt"
+endfunction
+
+function! TodoTxtGetSiblingFilePath(file_name)
+    let l:cur_dir = expand('%:p:h')
+    return l:cur_dir."/".a:file_name
+endfunction
+
+function! s:IsWritableOrCreatable(file_path)
+    let l:file_dir = fnamemodify(expand(a:file_path), ":h") 
+    return filewritable(a:file_path) || filewritable(l:file_dir)
+endfunction
+
 function! TodoTxtRemoveCompleted()
-    " Check if we can write to done.txt before proceeding.
-    let l:target_dir = expand('%:p:h')
-    let l:done_file = l:target_dir.'/done.txt'
-    if !filewritable(l:done_file) && !filewritable(l:target_dir)
-        echoerr "Can't write to file 'done.txt'"
+    let l:target_file_name = TodoTxtGetSiblingFileName('done')
+    let l:target_file = TodoTxtGetSiblingFilePath(l:target_file_name)
+    " Check if we can write to target file before proceeding.
+    if !s:IsWritableOrCreatable(l:target_file)
+        echoerr "Can't write to file '".l:target_file_name."'"
         return
     endif
 
     let l:completed = []
     :g/^x /call add(l:completed, getline(line(".")))|d
-    call s:AppendToFile(l:done_file, l:completed)
+    call s:AppendToFile(l:target_file, l:completed)
 endfunction
 
 " Mappings {{{1
