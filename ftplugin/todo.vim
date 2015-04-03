@@ -56,6 +56,10 @@ function! s:AppendToFile(file, lines)
     call writefile(l:lines, a:file)
 endfunction
 
+function! TodoTxtGetBaseName()
+    return tolower(expand('%:r:f'))
+endfunction
+
 function! TodoTxtGetSiblingFileName(base_name)
     let l:cur_filename = expand('%:f')
 
