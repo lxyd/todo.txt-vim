@@ -12,3 +12,4 @@ x 2014-11-01 2011-05-31 Start documentation @doc
 x 2014-11-01 2011-06-01 Improve syntax file @syntax
 x 2014-11-01 2011-06-06 Check file syntax @syntax
 x 2015-04-03 2015-04-03 Add <leader>zz to CANCEL task @ftplugin
+x 2015-04-04 2015-04-03 When moving tasks between files, keep first letter capitalization @ftplugin
