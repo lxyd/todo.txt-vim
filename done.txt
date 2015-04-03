@@ -11,3 +11,4 @@ x 2014-11-01 2011-05-30 Map commands to add, rm, ls, pri, depri etc @ftplugin
 x 2014-11-01 2011-05-31 Start documentation @doc
 x 2014-11-01 2011-06-01 Improve syntax file @syntax
 x 2014-11-01 2011-06-06 Check file syntax @syntax
+x 2015-04-03 2015-04-03 Add <leader>zz to CANCEL task @ftplugin
