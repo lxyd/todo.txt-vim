@@ -31,6 +31,12 @@ function! TodoTxtMarkAsDone()
     normal! Ix 
 endfunction
 
+function! TodoTxtMarkAsCancelled()
+    call s:TodoTxtRemovePriority()
+    call TodoTxtPrependDate()
+    normal! Ix cancel 
+endfunction
+
 function! TodoTxtMarkAllAsDone()
     :g!/^x /:call TodoTxtMarkAsDone()
 endfunction
@@ -158,6 +164,15 @@ endif
 
 if !hasmapto("<leader>x",'v')
     vnoremap <script> <silent> <buffer> <leader>x :call TodoTxtMarkAsDone()<CR>
+endif
+
+" Mark cancel {{{2
+if !hasmapto("<leader>zz",'n')
+    nnoremap <script> <silent> <buffer> <leader>zz :call TodoTxtMarkAsCancelled()<CR>
+endif
+
+if !hasmapto("<leader>zz",'v')
+    vnoremap <script> <silent> <buffer> <leader>zz :call TodoTxtMarkAsCancelled()<CR>
 endif
 
 " Mark all done {{{2
