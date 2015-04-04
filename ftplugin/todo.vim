@@ -263,6 +263,7 @@ endif
 
 " Folding {{{1
 " Options {{{2
+
 setlocal foldmethod=expr
 setlocal foldexpr=TodoFoldLevel(v:lnum)
 setlocal foldtext=TodoFoldText()
@@ -277,7 +278,11 @@ function! TodoFoldLevel(lnum)
     " function we will return 1 for the completed tasks (they will be at the
     " first folding level) while for the other lines 0 will be returned,
     " indicating that they do not fold.
-    return match(getline(a:lnum),'^[xX]\s.\+$') + 1
+    if TodoTxtGetBaseName() == 'done'
+        return 0
+    else
+        return match(getline(a:lnum),'^[xX]\s.\+$') + 1
+    endif
 endfunction
 
 " TodoFoldText() {{{2
