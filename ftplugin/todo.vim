@@ -22,7 +22,7 @@ function! s:TodoTxtRemovePriority()
 endfunction
 
 function! TodoTxtPrependDate()
-    normal! 0"=strftime("%Y-%m-%d ")P
+    exec ':s/\(^(\w)\s\|^\)/\1'.strftime("%Y-%m-%d").' /'
 endfunction
 
 function! TodoTxtMarkAsDone()
