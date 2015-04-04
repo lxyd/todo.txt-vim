@@ -17,11 +17,11 @@ This plugin gives syntax highlighting to [todo.txt](http://todotxt.com/) files. 
 
 `<leader>-k` : Increase the priority of the current line
 
-`<leader>-a` : Add the priority (A) to the current line
+`<leader>-a` : Set the priority (A) to the current line(s)
 
-`<leader>-b` : Add the priority (B) to the current line
+`<leader>-b` : Set the priority (B) to the current line(s)
 
-`<leader>-c` : Add the priority (C) to the current line
+`<leader>-c` : Set the priority (C) to the current line(s)
 
 `<leader>-d` : Insert the current date
 
@@ -32,6 +32,12 @@ This plugin gives syntax highlighting to [todo.txt](http://todotxt.com/) files. 
 `<leader>-X` : Mark all tasks as completed
 
 `<leader>-D` : Move completed tasks to done.txt
+
+Additional extensions to the canonical todo.txt actions/format:
+
+`<leader>-zz` : Mark task as cancelled (like done, but with `cancel` word after the x-mark)
+
+`<leader>-t` : Move selected line(s) between files todo.txt and today.txt for easier short-term planning
 
 If you want the help installed, run ":helptags ~/.vim/doc" inside vim after having copied the files.
 Then you will be able to get the commands help with: :h todo.txt
