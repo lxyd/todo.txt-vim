@@ -56,6 +56,21 @@ function! s:AppendToFile(file, lines)
     call writefile(l:lines, a:file)
 endfunction
 
+function! s:PrependToFile(file, lines)
+    let l:lines = []
+
+    " Append new completed tasks to the list.
+    call extend(l:lines, a:lines)
+
+    " Place existing tasks in done.txt at the beggining of the list.
+    if filereadable(a:file)
+        call extend(l:lines, readfile(a:file))
+    endif
+
+    " Write to file.
+    call writefile(l:lines, a:file)
+endfunction
+
 function! TodoTxtGetBaseName()
     return tolower(expand('%:r:f'))
 endfunction
@@ -94,6 +109,32 @@ function! TodoTxtRemoveCompleted()
     let l:completed = []
     :g/^x /call add(l:completed, getline(line(".")))|d
     call s:AppendToFile(l:target_file, l:completed)
+endfunction
+
+function! s:MoveToSiblingFile(base_name, l1, l2)
+    let l:target_file_name = TodoTxtGetSiblingFileName(a:base_name)
+    let l:target_file = TodoTxtGetSiblingFilePath(l:target_file_name)
+    " Check if we can write to target file before proceeding.
+    if !s:IsWritableOrCreatable(l:target_file)
+        echoerr "Can't write to file '".l:target_file_name."'"
+        return
+    endif
+
+    let l:lines = getline(a:l1, a:l2)
+
+    exec a:l1.",".a:l2."d"
+
+    call s:PrependToFile(l:target_file, l:lines)
+endfunction
+
+function! TodoTxtToggleToday(l1, l2) range
+    let l:base_name = TodoTxtGetBaseName()
+    if l:base_name == 'todo'
+        call s:MoveToSiblingFile('today', a:l1, a:l2)
+    elseif l:base_name == 'today'
+        call s:MoveToSiblingFile('todo', a:l1, a:l2)
+    endif
+    " else - do nothing
 endfunction
 
 " Mappings {{{1
@@ -209,6 +250,15 @@ endif
 " Remove completed {{{2
 if !hasmapto("<leader>D",'n')
     nnoremap <script> <silent> <buffer> <leader>D :call TodoTxtRemoveCompleted()<CR>
+endif
+
+" Toggle today tasks {{{2
+if !hasmapto("<leader>t",'n')
+    nnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("."), line("."))<CR>
+endif
+
+if !hasmapto("<leader>t",'v')
+    vnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("'<"), line("'>"))<CR>
 endif
 
 " Folding {{{1
