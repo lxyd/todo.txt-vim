@@ -162,13 +162,13 @@ function! TodoTxtPrioritizeDecrease()
     normal! 0f)h
 endfunction
 
-function! TodoTxtPrioritizeAdd (priority)
+function! TodoTxtPrioritizeSet (priority)
     " Need to figure out how to only do this if the first visible letter in a line is not (
-    :call TodoTxtPrioritizeAddAction(a:priority)
+    :call TodoTxtPrioritizeSetAction(a:priority)
 endfunction
 
-function! TodoTxtPrioritizeAddAction (priority)
-    execute "normal! mq0i(".a:priority.") \<esc>`q"
+function! TodoTxtPrioritizeSetAction (priority)
+    exec ':s/\(^(\w)\s\|^\)/('.a:priority.') /'
 endfunction
 
 if !hasmapto("<leader>j",'n')
@@ -188,27 +188,27 @@ if !hasmapto("<leader>k",'v')
 endif
 
 if !hasmapto("<leader>a",'n')
-    nnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeAdd('A')<CR>
+    nnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeSet('A')<CR>
 endif
 
 if !hasmapto("<leader>a",'v')
-    vnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeAdd('A')<CR>
+    vnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeSet('A')<CR>
 endif
 
 if !hasmapto("<leader>b",'n')
-    nnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeAdd('B')<CR>
+    nnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeSet('B')<CR>
 endif
 
 if !hasmapto("<leader>b",'v')
-    vnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeAdd('B')<CR>
+    vnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeSet('B')<CR>
 endif
 
 if !hasmapto("<leader>c",'n')
-    nnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeAdd('C')<CR>
+    nnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeSet('C')<CR>
 endif
 
 if !hasmapto("<leader>c",'v')
-    vnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeAdd('C')<CR>
+    vnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeSet('C')<CR>
 endif
 
 " Insert date {{{2
