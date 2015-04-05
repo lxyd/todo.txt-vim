@@ -13,9 +13,13 @@ This plugin gives syntax highlighting to [todo.txt](http://todotxt.com/) files. 
 
 `<leader>-s@` : Sort the file on @Contexts
 
-`<leader>-j` : Lower the priority of the current line
+`<leader>-j` : Lower the priority of the current line(s)
 
-`<leader>-k` : Increase the priority of the current line
+`n<leader>-j` : Lower the priority `n` times
+
+`<leader>-k` : Increase the priority of the current line(s)
+
+`n<leader>-k` : Increase the priority `n` times
 
 `<leader>-a` : Set the priority (A) to the current line(s)
 
