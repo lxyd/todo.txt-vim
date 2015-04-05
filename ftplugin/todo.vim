@@ -72,19 +72,34 @@ function! s:PrependToFile(file, lines)
 endfunction
 
 function! TodoTxtGetBaseName()
-    return tolower(expand('%:r:f'))
+    let l:name = tolower(expand('%:r:f'))
+    if stridx(l:name, "-") >= 0
+        return substitute(l:name, "-.*$", "", "")
+    else
+        return l:name
+    end
+endfunction
+
+function! TodoTxtGetContextName()
+    let l:name = tolower(expand('%:r:f'))
+    if stridx(l:name, "-") >= 0
+        return substitute(l:name, "^[^-]*", "", "")
+    else
+        return ""
+    end
 endfunction
 
 function! TodoTxtGetSiblingFileName(base_name)
-    let l:cur_filename = expand('%:f')
+    let l:cur_filename = expand('%:r:f')
+    let l:cur_context = TodoTxtGetContextName()
 
-    if l:cur_filename =~ "^[A-Z]" 
+    if l:cur_filename =~ "^[A-Z]" " check for uppercase
         let l:first_letter = toupper(a:base_name[0])
     else
         let l:first_letter = a:base_name[0]
     endif
 
-    return l:first_letter.a:base_name[1:].".txt"
+    return l:first_letter.a:base_name[1:].l:cur_context.".txt"
 endfunction
 
 function! TodoTxtGetSiblingFilePath(file_name)
