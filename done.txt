@@ -16,3 +16,4 @@ x 2015-04-04 2015-04-03 When moving tasks between files, keep first letter capit
 x 2015-04-04 2015-04-03 Add <leader>t to move between todo.txt and today.txt @ftplugin
 x 2015-04-04 2015-04-03 Make <leader>d leave priority at the beginning of the line @ftplugin
 x 2015-04-05 2015-04-03 Make <leader>j and <leader>k work on tasks with no priority (set priority B and A respectively) @ftplugin
+x 2015-04-05 2015-04-03 Set filetype 'todo' for files [Tt]odo-*.txt (and [Dd]one-*.txt and [Tt]oday-*.txt) @ftplugin
