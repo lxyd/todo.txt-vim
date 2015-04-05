@@ -72,7 +72,7 @@ function! s:PrependToFile(file, lines)
 endfunction
 
 function! TodoTxtGetBaseName()
-    let l:name = tolower(expand('%:r:f'))
+    let l:name = tolower(expand('%:t:r:f'))
     if stridx(l:name, "-") >= 0
         return substitute(l:name, "-.*$", "", "")
     else
@@ -81,7 +81,7 @@ function! TodoTxtGetBaseName()
 endfunction
 
 function! TodoTxtGetContextName()
-    let l:name = tolower(expand('%:r:f'))
+    let l:name = tolower(expand('%:t:r:f'))
     if stridx(l:name, "-") >= 0
         return substitute(l:name, "^[^-]*", "", "")
     else
@@ -90,7 +90,7 @@ function! TodoTxtGetContextName()
 endfunction
 
 function! TodoTxtGetSiblingFileName(base_name)
-    let l:cur_filename = expand('%:r:f')
+    let l:cur_filename = expand('%:t:r:f')
     let l:cur_context = TodoTxtGetContextName()
 
     if l:cur_filename =~ "^[A-Z]" " check for uppercase
@@ -108,7 +108,7 @@ function! TodoTxtGetSiblingFilePath(file_name)
 endfunction
 
 function! s:IsWritableOrCreatable(file_path)
-    let l:file_dir = fnamemodify(expand(a:file_path), ":h") 
+    let l:file_dir = fnamemodify(expand(a:file_path), ":p:h") 
     return filewritable(a:file_path) || filewritable(l:file_dir)
 endfunction
 
