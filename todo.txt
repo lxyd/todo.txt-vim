@@ -1,3 +1,2 @@
 2014-11-01 Find a way to import text into markdown and vim doc @doc
-2015-04-03 Make <leader>j and <leader>k work on tasks with no priority (set priority B and A respectively) @ftplugin
 2015-04-03 Set filetype 'todo' for files [Tt]odo-*.txt (and [Dd]one-*.txt and [Tt]oday-*.txt) @ftplugin
