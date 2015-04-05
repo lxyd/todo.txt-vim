@@ -9,15 +9,19 @@ COMMANDS                                                       *todo-commands*
 
 `<leader>-s@` : Sort the file on @Contexts
 
-`<leader>-j` : Lower the priority of the current line
+`<leader>-j` : Lower the priority of the current line(s)
 
-`<leader>-k` : Increase the priority of the current line
+`n<leader>-j` : Lower the priority `n` times
 
-`<leader>-a` : Add the priority (A) to the current line
+`<leader>-k` : Increase the priority of the current line(s)
 
-`<leader>-b` : Add the priority (B) to the current line
+`n<leader>-k` : Increase the priority `n` times
 
-`<leader>-c` : Add the priority (C) to the current line
+`<leader>-a` : Set the priority (A) to the current line(s)
+
+`<leader>-b` : Set the priority (B) to the current line(s)
+
+`<leader>-c` : Set the priority (C) to the current line(s)
 
 `<leader>-d` : Insert the current date
 
@@ -28,5 +32,11 @@ COMMANDS                                                       *todo-commands*
 `<leader>-X` : Mark all tasks as completed
 
 `<leader>-D` : Move completed tasks to done.txt
+
+Additional extensions to the canonical todo.txt actions/format:
+
+`<leader>-zz` : Mark task as cancelled (like done, but with `cancel` word after the x-mark)
+
+`<leader>-t` : Move selected line(s) between files todo.txt and today.txt for easier short-term planning
 
 <leader> is \ by default, so <leader>-s means you type \s
