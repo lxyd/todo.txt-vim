@@ -154,37 +154,74 @@ endif
 " Increment and Decrement The Priority
 :set nf=octal,hex,alpha
 
-function! TodoTxtPrioritizeIncrease()
-    normal! 0f)h
+function! s:PrioritizeChange(l, delta, limit, default) " delta must be 1 or -1
+    let l:pri = TodoTxtPrioritizeGet(getline(a:l))
+    if pri == ""
+        call TodoTxtPrioritizeSet(a:default, a:l)
+    elseif pri != a:limit
+        call TodoTxtPrioritizeSet(nr2char(char2nr(l:pri)+a:delta), a:l)
+    endif
 endfunction
 
-function! TodoTxtPrioritizeDecrease()
-    normal! 0f)h
+function! TodoTxtPrioritizeIncrease(lfrom, lto) range
+    let l:i = 0
+    while l:i == 0 || l:i < v:count
+        let l:l = a:lfrom
+        while l:l <= a:lto
+            call s:PrioritizeChange(l:l, -1, "A", "A")
+            let l:l += 1
+        endwhile
+        let l:i += 1
+    endwhile
 endfunction
 
-function! TodoTxtPrioritizeSet (priority)
-    " Need to figure out how to only do this if the first visible letter in a line is not (
-    :call TodoTxtPrioritizeSetAction(a:priority)
+function! TodoTxtPrioritizeDecrease(lfrom, lto) range
+    let l:i = 0
+    while l:i == 0 || l:i < v:count
+        let l:l = a:lfrom
+        while l:l <= a:lto
+            call s:PrioritizeChange(l:l, 1, "Z", "B")
+            let l:l += 1
+        endwhile
+        let l:i += 1
+    endwhile
 endfunction
 
-function! TodoTxtPrioritizeSetAction (priority)
-    exec ':s/\(^(\w)\s\|^\)/('.a:priority.') /'
+function! TodoTxtPrioritizeGet(line)
+    let l:res = matchlist(a:line, '^(\(\w\))\s')
+    if empty(l:res)
+        return ""
+    else
+        return l:res[1]
+    endif
+endfunction
+
+function! TodoTxtPrioritizeSet(priority, ...)
+    if a:0 == 1
+        let l:range = "".a:1
+    elseif a:0 == 2
+        let l:range = a:1.",".a:2
+    else
+        " no range specified, work on current line
+        let l:range = ""
+    endif
+    exec ':'.l:range.'s/\(^(\w)\s\|^\)/('.a:priority.') /'
 endfunction
 
 if !hasmapto("<leader>j",'n')
-    nnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeIncrease()<CR>
+    nnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeDecrease(line("."), line("."))<ESC>
 endif
 
 if !hasmapto("<leader>j",'v')
-    vnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeIncrease()<CR>
+    vnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeDecrease(line("'<"), line("'>"))<ESC>
 endif
 
 if !hasmapto("<leader>k",'n')
-    nnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeDecrease()<CR>
+    nnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeIncrease(line("."), line("."))<ESC>
 endif
 
 if !hasmapto("<leader>k",'v')
-    vnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeDecrease()<CR>
+    vnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeIncrease(line("'<"), line("'>"))<ESC>
 endif
 
 if !hasmapto("<leader>a",'n')
