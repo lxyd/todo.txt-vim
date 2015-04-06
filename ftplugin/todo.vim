@@ -156,14 +156,17 @@ endfunction
 " Sort tasks {{{2
 if !hasmapto("<leader>s",'n')
     nnoremap <script> <silent> <buffer> <leader>s :sort<CR>
+    nnoremap <script> <silent> <buffer> <leader>ы :sort<CR>
 endif
 
 if !hasmapto("<leader>s@",'n')
     nnoremap <script> <silent> <buffer> <leader>s@ :sort /.\{-}\ze@/ <CR>
+    nnoremap <script> <silent> <buffer> <leader>ы@ :sort /.\{-}\ze@/ <CR>
 endif
 
 if !hasmapto("<leader>s+",'n')
     nnoremap <script> <silent> <buffer> <leader>s+ :sort /.\{-}\ze+/ <CR>
+    nnoremap <script> <silent> <buffer> <leader>ы+ :sort /.\{-}\ze+/ <CR>
 endif
 
 " Increment and Decrement The Priority
@@ -225,92 +228,114 @@ endfunction
 
 if !hasmapto("<leader>j",'n')
     nnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeDecrease(line("."), line("."))<ESC>
+    nnoremap <script> <silent> <buffer> <leader>о :call TodoTxtPrioritizeDecrease(line("."), line("."))<ESC>
 endif
 
 if !hasmapto("<leader>j",'v')
     vnoremap <script> <silent> <buffer> <leader>j :call TodoTxtPrioritizeDecrease(line("'<"), line("'>"))<ESC>
+    vnoremap <script> <silent> <buffer> <leader>о :call TodoTxtPrioritizeDecrease(line("'<"), line("'>"))<ESC>
 endif
 
 if !hasmapto("<leader>k",'n')
     nnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeIncrease(line("."), line("."))<ESC>
+    nnoremap <script> <silent> <buffer> <leader>л :call TodoTxtPrioritizeIncrease(line("."), line("."))<ESC>
 endif
 
 if !hasmapto("<leader>k",'v')
     vnoremap <script> <silent> <buffer> <leader>k :call TodoTxtPrioritizeIncrease(line("'<"), line("'>"))<ESC>
+    vnoremap <script> <silent> <buffer> <leader>л :call TodoTxtPrioritizeIncrease(line("'<"), line("'>"))<ESC>
 endif
 
 if !hasmapto("<leader>a",'n')
     nnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeSet('A')<CR>
+    nnoremap <script> <silent> <buffer> <leader>ф :call TodoTxtPrioritizeSet('A')<CR>
 endif
 
 if !hasmapto("<leader>a",'v')
     vnoremap <script> <silent> <buffer> <leader>a :call TodoTxtPrioritizeSet('A')<CR>
+    vnoremap <script> <silent> <buffer> <leader>ф :call TodoTxtPrioritizeSet('A')<CR>
 endif
 
 if !hasmapto("<leader>b",'n')
     nnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeSet('B')<CR>
+    nnoremap <script> <silent> <buffer> <leader>и :call TodoTxtPrioritizeSet('B')<CR>
 endif
 
 if !hasmapto("<leader>b",'v')
     vnoremap <script> <silent> <buffer> <leader>b :call TodoTxtPrioritizeSet('B')<CR>
+    vnoremap <script> <silent> <buffer> <leader>и :call TodoTxtPrioritizeSet('B')<CR>
 endif
 
 if !hasmapto("<leader>c",'n')
     nnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeSet('C')<CR>
+    nnoremap <script> <silent> <buffer> <leader>с :call TodoTxtPrioritizeSet('C')<CR>
 endif
 
 if !hasmapto("<leader>c",'v')
     vnoremap <script> <silent> <buffer> <leader>c :call TodoTxtPrioritizeSet('C')<CR>
+    vnoremap <script> <silent> <buffer> <leader>с :call TodoTxtPrioritizeSet('C')<CR>
 endif
 
 " Insert date {{{2
 if !hasmapto("date<Tab>",'i')
     inoremap <script> <silent> <buffer> date<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
+    inoremap <script> <silent> <buffer> вфеу<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
+    inoremap <script> <silent> <buffer> дата<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
 endif
 
 if !hasmapto("<leader>d",'n')
     nnoremap <script> <silent> <buffer> <leader>d :call TodoTxtPrependDate()<CR>
+    nnoremap <script> <silent> <buffer> <leader>в :call TodoTxtPrependDate()<CR>
 endif
 
 if !hasmapto("<leader>d",'v')
     vnoremap <script> <silent> <buffer> <leader>d :call TodoTxtPrependDate()<CR>
+    vnoremap <script> <silent> <buffer> <leader>в :call TodoTxtPrependDate()<CR>
 endif
 
 " Mark done {{{2
 if !hasmapto("<leader>x",'n')
     nnoremap <script> <silent> <buffer> <leader>x :call TodoTxtMarkAsDone()<CR>
+    nnoremap <script> <silent> <buffer> <leader>ч :call TodoTxtMarkAsDone()<CR>
 endif
 
 if !hasmapto("<leader>x",'v')
     vnoremap <script> <silent> <buffer> <leader>x :call TodoTxtMarkAsDone()<CR>
+    vnoremap <script> <silent> <buffer> <leader>ч :call TodoTxtMarkAsDone()<CR>
 endif
 
 " Mark cancel {{{2
 if !hasmapto("<leader>zz",'n')
     nnoremap <script> <silent> <buffer> <leader>zz :call TodoTxtMarkAsCancelled()<CR>
+    nnoremap <script> <silent> <buffer> <leader>яя :call TodoTxtMarkAsCancelled()<CR>
 endif
 
 if !hasmapto("<leader>zz",'v')
     vnoremap <script> <silent> <buffer> <leader>zz :call TodoTxtMarkAsCancelled()<CR>
+    vnoremap <script> <silent> <buffer> <leader>яя :call TodoTxtMarkAsCancelled()<CR>
 endif
 
 " Mark all done {{{2
 if !hasmapto("<leader>X",'n')
     nnoremap <script> <silent> <buffer> <leader>X :call TodoTxtMarkAllAsDone()<CR>
+    nnoremap <script> <silent> <buffer> <leader>Ч :call TodoTxtMarkAllAsDone()<CR>
 endif
 
 " Remove completed {{{2
 if !hasmapto("<leader>D",'n')
     nnoremap <script> <silent> <buffer> <leader>D :call TodoTxtRemoveCompleted()<CR>
+    nnoremap <script> <silent> <buffer> <leader>В :call TodoTxtRemoveCompleted()<CR>
 endif
 
 " Toggle today tasks {{{2
 if !hasmapto("<leader>t",'n')
     nnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("."), line("."))<CR>
+    nnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleToday(line("."), line("."))<CR>
 endif
 
 if !hasmapto("<leader>t",'v')
     vnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("'<"), line("'>"))<CR>
+    vnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleToday(line("'<"), line("'>"))<CR>
 endif
 
 " Folding {{{1
