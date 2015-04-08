@@ -210,7 +210,7 @@ function! TodoTxtPrioritizeGet(line)
     if empty(l:res)
         return ""
     else
-        return l:res[1]
+        return toupper(l:res[1])
     endif
 endfunction
 
