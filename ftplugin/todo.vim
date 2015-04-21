@@ -283,14 +283,14 @@ if !hasmapto("date<Tab>",'i')
     inoremap <script> <silent> <buffer> дата<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
 endif
 
-if !hasmapto("<leader>d",'n')
-    nnoremap <script> <silent> <buffer> <leader>d :call TodoTxtPrependDate()<CR>
-    nnoremap <script> <silent> <buffer> <leader>в :call TodoTxtPrependDate()<CR>
+if !hasmapto("<leader>dd",'n')
+    nnoremap <script> <silent> <buffer> <leader>dd :call TodoTxtPrependDate()<CR>
+    nnoremap <script> <silent> <buffer> <leader>вв :call TodoTxtPrependDate()<CR>
 endif
 
-if !hasmapto("<leader>d",'v')
-    vnoremap <script> <silent> <buffer> <leader>d :call TodoTxtPrependDate()<CR>
-    vnoremap <script> <silent> <buffer> <leader>в :call TodoTxtPrependDate()<CR>
+if !hasmapto("<leader>dd",'v')
+    vnoremap <script> <silent> <buffer> <leader>dd :call TodoTxtPrependDate()<CR>
+    vnoremap <script> <silent> <buffer> <leader>вв :call TodoTxtPrependDate()<CR>
 endif
 
 " Mark done {{{2
