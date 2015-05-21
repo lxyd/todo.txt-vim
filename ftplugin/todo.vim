@@ -89,17 +89,17 @@ function! TodoTxtGetContextName()
     end
 endfunction
 
-function! TodoTxtGetSiblingFileName(base_name)
+function! TodoTxtGetSiblingFileName(capitalized_base_name)
     let l:cur_filename = expand('%:t:r:f')
     let l:cur_context = TodoTxtGetContextName()
 
     if l:cur_filename =~ "^[A-Z]" " check for uppercase
-        let l:first_letter = toupper(a:base_name[0])
+        let l:base_name = a:capitalized_base_name
     else
-        let l:first_letter = a:base_name[0]
+        let l:base_name = tolower(a:capitalized_base_name)
     endif
 
-    return l:first_letter.a:base_name[1:].l:cur_context.".txt"
+    return l:base_name.l:cur_context.".txt"
 endfunction
 
 function! TodoTxtGetSiblingFilePath(file_name)
@@ -142,12 +142,12 @@ function! s:MoveToSiblingFile(base_name, l1, l2)
     call s:PrependToFile(l:target_file, l:lines)
 endfunction
 
-function! TodoTxtToggleToday(l1, l2) range
+function! TodoTxtToggleSomeDay(l1, l2) range
     let l:base_name = TodoTxtGetBaseName()
     if l:base_name == 'todo'
-        call s:MoveToSiblingFile('today', a:l1, a:l2)
-    elseif l:base_name == 'today'
-        call s:MoveToSiblingFile('todo', a:l1, a:l2)
+        call s:MoveToSiblingFile('DoSomeDay', a:l1, a:l2)
+    elseif l:base_name == 'dosomeday'
+        call s:MoveToSiblingFile('Todo', a:l1, a:l2)
     endif
     " else - do nothing
 endfunction
@@ -327,15 +327,15 @@ if !hasmapto("<leader>D",'n')
     nnoremap <script> <silent> <buffer> <leader>В :call TodoTxtRemoveCompleted()<CR>
 endif
 
-" Toggle today tasks {{{2
+" Toggle some day tasks {{{2
 if !hasmapto("<leader>t",'n')
-    nnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("."), line("."))<CR>
-    nnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleToday(line("."), line("."))<CR>
+    nnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleSomeDay(line("."), line("."))<CR>
+    nnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleSomeDay(line("."), line("."))<CR>
 endif
 
 if !hasmapto("<leader>t",'v')
-    vnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleToday(line("'<"), line("'>"))<CR>
-    vnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleToday(line("'<"), line("'>"))<CR>
+    vnoremap <script> <silent> <buffer> <leader>t :call TodoTxtToggleSomeDay(line("'<"), line("'>"))<CR>
+    vnoremap <script> <silent> <buffer> <leader>е :call TodoTxtToggleSomeDay(line("'<"), line("'>"))<CR>
 endif
 
 " Folding {{{1
